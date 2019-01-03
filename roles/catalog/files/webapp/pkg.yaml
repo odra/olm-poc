@@ -1,0 +1,4 @@
+packageName: tutorial-webapp
+channels:
+  - name: preview
+    currentCSV: tutorial-web-app-operator.master

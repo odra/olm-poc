@@ -1,0 +1,6 @@
+- hosts: local
+  connection: local
+  tasks:
+    - name: Install catalog source
+      include_role:
+        name: catalog

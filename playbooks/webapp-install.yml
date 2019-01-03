@@ -1,0 +1,6 @@
+- hosts: local
+  connection: local
+  tasks:
+    - name: Install webapp
+      include_role:
+        name: webapp

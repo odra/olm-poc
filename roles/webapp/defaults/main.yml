@@ -1,0 +1,13 @@
+---
+# defaults file for webapp
+webapp_ns: webapp-subs
+webapp_tmp_dir: /tmp/webapp
+webapp_sub_preffix: tutorial-webapp-
+webapp_sub_source: integreatly-operators
+webapp_sub_name: tutorial-webapp
+webapp_sub_csv: tutorial-web-app-operator.master
+webapp_sub_channel: preview
+webapp_walkthrough_url: https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
+webapp_oauth_id: tutorial-web-app
+webapp_template_path: "/home/tutorial-web-app-operator/deploy/template/tutorial-web-app.yml"
+webapp_cr_name: tutorial-web-app-operator

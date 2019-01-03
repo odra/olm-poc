@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: "{{ webapp_sub_name }}"
+  generateName: "{{ webapp_sub_preffix }}"
+  namespace: "{{ webapp_ns }}"
+spec:
+  source: "{{ webapp_sub_source }}"
+  name: "{{ webapp_sub_name }}"
+  startingCSV: "{{ webapp_sub_csv }}"
+  channel: "{{ webapp_sub_channel }}"

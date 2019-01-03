@@ -1,0 +1,17 @@
+- name: Get configmap
+  shell: "oc get configmap/{{ catalog_configmap_name }} -n {{ catalog_ns }}"
+  register: catalog_configmap_cmd
+  failed_when: no
+
+- name: Delete configmap
+  shell: "oc delete configmap/{{ catalog_configmap_name }} -n {{ catalog_ns }}"
+  when: catalog_configmap_cmd.rc == 0
+
+- name: Get catalog source
+  shell: "oc get catalogsource/{{ catalog_name }} -n {{ catalog_ns }}"
+  register: catalog_source_cmd
+  failed_when: no
+
+- name: Delete catalog source
+  shell: "oc delete catalogsource/{{ catalog_configmap_name }} -n {{ catalog_ns }}"
+  when: catalog_source_cmd.rc == 0

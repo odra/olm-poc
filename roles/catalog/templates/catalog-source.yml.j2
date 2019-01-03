@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  generation: 1
+  name: "{{ catalog_name }}"
+spec:
+  configMap: "{{ catalog_configmap_name }}"
+  displayName: "{{ catalog_display_name }}"
+  publisher: "{{ catalog_publisher }}"
+  sourceType: "{{ catalog_source_type }}"

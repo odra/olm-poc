@@ -1,0 +1,7 @@
+- hosts: local
+  connection: local
+  tasks:
+    - name: Uninstall webapp
+      include_role:
+        name: webapp
+        tasks_from: uninstall

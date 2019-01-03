@@ -1,0 +1,11 @@
+---
+# defaults file for catalog
+catalog_ns: operator-lifecycle-manager
+catalog_name: integreatly-operators
+catalog_configmap_name: integreatly-operators
+catalog_display_name: Integreatly Operators
+catalog_publisher: Integreatly
+catalog_source_type: internal
+catalog_tmp_dir: /tmp/catalog-source
+catalog_operator_list:
+  - webapp

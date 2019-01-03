@@ -1,0 +1,24 @@
+---
+# tasks file for webapp
+- name: create webapp namespace
+  shell: "oc create ns {{ webapp_ns }}"
+  failed_when: no
+
+- name: Ensure tmp folder exists
+  file:
+    path: "{{ webapp_tmp_dir }}"
+    state: directory
+
+- name: Generate webapp templates
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ webapp_tmp_dir }}/{{ item }}"
+  with_items:
+    - cr.yml
+    - subscription.yml
+
+- name: Create subscription cr
+  shell: "oc apply -f {{webapp_tmp_dir}}/subscription.yml -n {{ webapp_ns }}"
+
+- name: Create webap cr
+  shell: "oc apply -f {{webapp_tmp_dir}}/cr.yml -n {{ webapp_ns }}"

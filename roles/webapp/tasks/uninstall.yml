@@ -1,0 +1,26 @@
+- name: Get subscription cr
+  shell: "oc get subscriptions/{{ webapp_sub_name }} -n {{ webapp_ns }}"
+  register: webapp_subs_cmd
+  failed_when: no
+
+- name: Delete subscription cr
+  shell: "oc delete subscriptions/{{ webapp_sub_name }} -n {{ webapp_ns }}"
+  when: webapp_subs_cmd.rc == 0
+
+- name: Get webapp cr
+  shell: "oc get webapp/{{ webapp_cr_name }} -n {{ webapp_ns }}"
+  register: webapp_cr_cmd
+  failed_when: no
+
+- name: Delete webapp cr
+  shell: "oc delete webapp/{{ webapp_cr_name }} -n {{ webapp_ns }}"
+  when: webapp_cr_cmd.rc == 0
+
+- name: Get web app namespace
+  shell: "oc get ns {{ webapp_ns }}"
+  register: webapp_ns_cmd
+  failed_when: no
+
+- name: Delete webapp namespace
+  shell: "oc delete ns/{{ webapp_ns }}"
+  when: webapp_ns_cmd.rc == 0

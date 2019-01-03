@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ catalog_configmap_name }}"
+data:
+  clusterServiceVersions: |-
+  {% for csv in csv_list %}
+  - {{ csv | indent(width=6) }}
+  {% endfor %}
+  
+  customResourceDefinitions: |-
+  {% for crd in crd_list %}
+  - {{ crd | indent(width=6) }}
+  {% endfor %}
+  
+  packages: >-
+  {% for pkg in pkg_list %}
+  - {{ pkg | indent(width=6) }}
+  {% endfor %}

@@ -1,0 +1,39 @@
+---
+# tasks file for catalog
+- name: Ensure tmp folder exists
+  file:
+    path: "{{ catalog_tmp_dir }}"
+    state: directory
+
+- name: Set csv list
+  set_fact:
+    csv_list: "{{ csv_list | default([]) + [lookup('file', item + '/csv.yaml')] }}"
+  with_items: "{{ catalog_operator_list }}"
+
+- name: Set crd list
+  set_fact:
+    crd_list: "{{ crd_list | default([]) + [lookup('file', item + '/crd.yaml')] }}"
+  with_items: "{{ catalog_operator_list }}"
+
+- name: Set pkg list
+  set_fact:
+    pkg_list: "{{ pkg_list | default([]) + [lookup('file', item + '/pkg.yaml')] }}"
+  with_items: "{{ catalog_operator_list }}"
+
+- name: Write templates to tmp folder
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ catalog_tmp_dir }}/{{ item }}"
+  with_items:
+    - configmap.yml
+    - catalog-source.yml
+
+- name: Create CRDs
+  shell: "oc apply -f {{role_path }}/files/{{ item }}/crd.yaml"
+  with_items: "{{ catalog_operator_list }}"
+
+- name: Create configmap
+  shell: "oc apply -f {{ catalog_tmp_dir }}/configmap.yml -n {{ catalog_ns }}"
+
+- name: Create CatalogSource
+  shell: "oc apply -f {{ catalog_tmp_dir }}/catalog-source.yml -n {{ catalog_ns }}"
